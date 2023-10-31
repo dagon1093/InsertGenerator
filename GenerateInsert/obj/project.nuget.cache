@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "cZCEs0R/cd1Wbrt/E5OZx0mwxpjs98JC9NvogBEiJJZ+oa4DAk/4Diw00ywhI2zPxLTQBIWMtzdApvZCXhLtBA==",
+  "dgSpecHash": "kEHwMqZK4Asapa2/tip2ZSIAcyVkhVoBX8EaErqyuN5sJ27lLlvj9A3FiaCcnvpixt6APgL70sqFgGznpymm4Q==",
   "success": true,
   "projectFilePath": "C:\\Users\\dagon\\source\\repos\\GenerateInsert\\GenerateInsert\\GenerateInsert.csproj",
   "expectedPackageFiles": [
@@ -23,6 +23,7 @@
     "C:\\Users\\dagon\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",
     "C:\\Users\\dagon\\.nuget\\packages\\microsoft.sqlserver.server\\1.0.0\\microsoft.sqlserver.server.1.0.0.nupkg.sha512",
     "C:\\Users\\dagon\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
+    "C:\\Users\\dagon\\.nuget\\packages\\nlog\\5.2.5\\nlog.5.2.5.nupkg.sha512",
     "C:\\Users\\dagon\\.nuget\\packages\\npgsql\\7.0.6\\npgsql.7.0.6.nupkg.sha512",
     "C:\\Users\\dagon\\.nuget\\packages\\system.configuration.configurationmanager\\6.0.1\\system.configuration.configurationmanager.6.0.1.nupkg.sha512",
     "C:\\Users\\dagon\\.nuget\\packages\\system.diagnostics.diagnosticsource\\6.0.0\\system.diagnostics.diagnosticsource.6.0.0.nupkg.sha512",

@@ -1,12 +1,14 @@
 ﻿
 // See https://aka.ms/new-console-template for more information
+
 using Npgsql;
 using System.Text;
 
-Console.WriteLine("Insert generator");
 
-var connectionString = "Host=localhost;Username=postgres;Password=Rp_9i7g7;Database=elib_db";
-NpgsqlConnection connection = new NpgsqlConnection(connectionString);
+
+Console.WriteLine("Insert generator");
+var CONNECTION_STRING = "Host=localhost;Username=postgres;Password=Rp_9i7g7;Database=elib_db";
+var connection = new NpgsqlConnection(CONNECTION_STRING);
 connection.Open();
 string commandText = "SELECT * FROM Book";
 string cmdColumnNames = "SELECT column_name\r\nFROM information_schema.columns\r\nWHERE table_schema='public' AND table_name='book' ";
@@ -29,8 +31,7 @@ await using (NpgsqlCommand command = new NpgsqlCommand(commandText, connection))
 {
     await using (NpgsqlDataReader reader = await command.ExecuteReaderAsync())
     {
-        //List<string> columns = new List<string>();
-        //await reader.ReadAsync();
+
         int numberOfColumns = reader.FieldCount;
         
 
@@ -46,16 +47,14 @@ await using (NpgsqlCommand command = new NpgsqlCommand(commandText, connection))
                     sb.Append($"\'{s}\'" + $"{(i != numberOfColumns - 2 ? ", " : "")}");
             }
             string finalString = sb.ToString();
-            Console.WriteLine($"ISERT INTO BOOK ({string.Join(", ", columnNames)}) VALUES ({string.Join(", ", finalString)})");
+            Console.WriteLine($"INSERT INTO BOOK ({string.Join(", ", columnNames)}) VALUES ({string.Join(", ", finalString)})");
             
         }
-
 
     }
 }
 
-
-
+connection.Close();
 Console.ReadLine();
 
 

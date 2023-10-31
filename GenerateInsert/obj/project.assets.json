@@ -326,6 +326,19 @@
           }
         }
       },
+      "NLog/5.2.5": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/NLog.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/NLog.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Npgsql/7.0.6": {
         "type": "package",
         "dependencies": {
@@ -1264,6 +1277,30 @@
         "useSharedDesignerContext.txt"
       ]
     },
+    "NLog/5.2.5": {
+      "sha512": "mMXtbAxfNzqkXcBjhJ3wN3rH7kwUZ0JL0GrUBI/lso7+tQ/HC4e5SnlmR3R5qQ9zWbqMbjxeH37rIf0yQGWTiA==",
+      "type": "package",
+      "path": "nlog/5.2.5",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "N.png",
+        "lib/net35/NLog.dll",
+        "lib/net35/NLog.xml",
+        "lib/net45/NLog.dll",
+        "lib/net45/NLog.xml",
+        "lib/net46/NLog.dll",
+        "lib/net46/NLog.xml",
+        "lib/netstandard1.3/NLog.dll",
+        "lib/netstandard1.3/NLog.xml",
+        "lib/netstandard1.5/NLog.dll",
+        "lib/netstandard1.5/NLog.xml",
+        "lib/netstandard2.0/NLog.dll",
+        "lib/netstandard2.0/NLog.xml",
+        "nlog.5.2.5.nupkg.sha512",
+        "nlog.nuspec"
+      ]
+    },
     "Npgsql/7.0.6": {
       "sha512": "TAqvwRnm3NJ0QvN7cvu6geJkbI0XPzGVRElVY5hF4gsgA+BnE12x6GM1TLhdeq+7ZKvvo3BD8jXKnXmr3tvdEw==",
       "type": "package",
@@ -2110,6 +2147,7 @@
   "projectFileDependencyGroups": {
     "net6.0": [
       "Microsoft.Data.SqlClient >= 5.1.1",
+      "NLog >= 5.2.5",
       "Npgsql >= 7.0.6"
     ]
   },
@@ -2160,6 +2198,10 @@
           "Microsoft.Data.SqlClient": {
             "target": "Package",
             "version": "[5.1.1, )"
+          },
+          "NLog": {
+            "target": "Package",
+            "version": "[5.2.5, )"
           },
           "Npgsql": {
             "target": "Package",
