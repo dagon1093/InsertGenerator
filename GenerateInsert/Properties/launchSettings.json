@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "GenerateInsert": {
+      "commandName": "Project",
+      "commandLineArgs": "book"
+    }
+  }
+}
