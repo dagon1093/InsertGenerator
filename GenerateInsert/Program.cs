@@ -9,7 +9,7 @@ using System.Text;
 
 Console.WriteLine("Insert generator");
 
-var CONNECTION_STRING = "Host=localhost;Username=postgres;Password= ;Database= ";
+var CONNECTION_STRING = "Host=localhost;Username=postgres;Password=;Database=";
 var connection = new NpgsqlConnection(CONNECTION_STRING);
 if (args.Length == 0)
 {
@@ -41,14 +41,16 @@ if (args.Length == 0)
                 for (int i = 0; i < numberOfColumns; i++)
                 {
                     if (reader.GetFieldValue<object>(i) is int a)
-                        sb.Append(a.ToString() + $"{(i != numberOfColumns - 2 ? ", " : "")}");
+                        sb.Append(a.ToString() + $"{(i != numberOfColumns - 1 ? ", " : "")}");
                     else if (reader.GetFieldValue<object>(i) is string s)
-                        sb.Append($"\'{s}\'" + $"{(i != numberOfColumns - 2 ? ", " : "")}");
+                        sb.Append($"\'{s}\'" + $"{(i != numberOfColumns - 1 ? ", " : "")}");
+                    else if (reader.GetFieldValue<object>(i) is DateTime dt)
+                        sb.Append($"\'{dt}\'" + $"{(i != numberOfColumns - 1 ? ", " : "")}");
                 }
                 string finalString = sb.ToString();
                 string stringToWrite = $"INSERT INTO BOOK ({string.Join(", ", columnNames)}) VALUES ({string.Join(", ", finalString)});";
                 Utils.writeToFile(path, stringToWrite, true);
-                //ToDo log4net Console.WriteLine($"INSERT INTO BOOK ({string.Join(", ", columnNames)}) VALUES ({string.Join(", ", finalString)})");
+                //ToDo log4net or serilog Console.WriteLine($"INSERT INTO BOOK ({string.Join(", ", columnNames)}) VALUES ({string.Join(", ", finalString)})");
                 //DELETE -- await writer.WriteLineAsync($"INSERT INTO BOOK ({string.Join(", ", columnNames)}) VALUES ({string.Join(", ", finalString)});");
 
 
