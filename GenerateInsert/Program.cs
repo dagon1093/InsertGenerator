@@ -8,7 +8,7 @@ using System.Text;
 
 Console.WriteLine("Insert generator");
 
-var CONNECTION_STRING = "Host=localhost;Username=postgres;Password=Rp_9i7g7;Database=elib_db";
+var CONNECTION_STRING = "Host=localhost;Username=postgres;Password=;Database=";
 var connection = new NpgsqlConnection(CONNECTION_STRING);
 if (args.Length == 0)
 {
