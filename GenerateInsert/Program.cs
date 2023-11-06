@@ -4,14 +4,14 @@
 using GenerateInsert;
 using Npgsql;
 using System.Diagnostics;
-using System.Text;
+
 
 
 Console.WriteLine("Insert generator");
 Stopwatch stopwatch = new Stopwatch();
 stopwatch.Start();
 
-var CONNECTION_STRING = "Host=localhost;Username=postgres;Password=Rp_9i7g7;Database=elib_db";
+var CONNECTION_STRING = "Host=localhost;Username=postgres;Password=;Database=";
 var connection = new NpgsqlConnection(CONNECTION_STRING);
 if (args.Length == 0)
 {
@@ -43,22 +43,20 @@ if (args.Length == 0)
 
                     while (await reader.ReadAsync())
                     {
-                        StringBuilder sb = new StringBuilder();
+                        await writer.WriteAsync($"INSERT INTO BOOK ({string.Join(", ", columnNames)}) VALUES (");
 
                         for (int i = 0; i < numberOfColumns; i++)
                         {
                             if (reader.GetFieldValue<object>(i) is int a)
-                                sb.Append(a.ToString() + $"{(i != numberOfColumns - 1 ? ", " : "")}");
+                                await writer.WriteAsync(a.ToString() + $"{(i != numberOfColumns - 1 ? ", " : "")}");
                             else if (reader.GetFieldValue<object>(i) is string s)
-                                sb.Append($"\'{s}\'" + $"{(i != numberOfColumns - 1 ? ", " : "")}");
+                                await writer.WriteAsync($"\'{s}\'" + $"{(i != numberOfColumns - 1 ? ", " : "")}");
                             else if (reader.GetFieldValue<object>(i) is DateTime dt)
-                                sb.Append($"\'{dt}\'" + $"{(i != numberOfColumns - 1 ? ", " : "")}");
+                                await writer.WriteAsync($"\'{dt}\'" + $"{(i != numberOfColumns - 1 ? ", " : "")}");
                         }
-                        string finalString = sb.ToString();
-                        string stringToWrite = $"INSERT INTO BOOK ({string.Join(", ", columnNames)}) VALUES ({string.Join(", ", finalString)});";
+                        await writer.WriteAsync(");\n");
                         //ToDo log4net or serilog Console.WriteLine($"INSERT INTO BOOK ({string.Join(", ", columnNames)}) VALUES ({string.Join(", ", finalString)})");
-                        //DELETE -- await writer.WriteLineAsync($"INSERT INTO BOOK ({string.Join(", ", columnNames)}) VALUES ({string.Join(", ", finalString)});");
-                        await writer.WriteLineAsync(stringToWrite);
+
                     }
                 }
 
