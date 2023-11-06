@@ -38,25 +38,5 @@ namespace GenerateInsert
             }
         }
 
-        /// <summary>
-        /// Записывает строку <param name="stringToWrite">"stringToWrite"</param> в файл <param name="fileName">"fileName"</param>
-        /// </summary>
-        /// <param name="fileName"></param>
-        /// <param name="stringToWrite"></param>
-        /// <param name="append"></param>
-        public static async void writeToFile(string fileName, string stringToWrite, bool append)
-        {
-
-            using (StreamWriter writer = new StreamWriter(fileName, append))
-            {
-                    await writer.WriteLineAsync(stringToWrite);
-
-            }
-
-        }
-
-       
-        
-
     }
 }
