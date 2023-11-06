@@ -9,7 +9,7 @@ using System.Text;
 
 Console.WriteLine("Insert generator");
 
-var CONNECTION_STRING = "Host=localhost;Username=postgres;Password=;Database=";
+var CONNECTION_STRING = "Host=localhost;Username=postgres;Password=Rp_9i7g7;Database=elib_db";
 var connection = new NpgsqlConnection(CONNECTION_STRING);
 if (args.Length == 0)
 {
@@ -19,7 +19,7 @@ if (args.Length == 0)
 
 } else {
 
-    string path = "inserts.sql";
+    string path = $"{args[0]}_inserts.sql";
     string commandText = $"SELECT * FROM {args[0]};";
 
     connection.Open();
@@ -58,8 +58,9 @@ if (args.Length == 0)
 
         }
     }
-
     connection.Close();
+    connection.Dispose();
+
 }
 Console.WriteLine("Нажмите кнопку для выхода: ");
 Console.ReadLine();
