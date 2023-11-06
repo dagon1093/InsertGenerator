@@ -3,12 +3,15 @@
 
 using GenerateInsert;
 using Npgsql;
+using System.Diagnostics;
 using System.Text;
 
 
 Console.WriteLine("Insert generator");
+Stopwatch stopwatch = new Stopwatch();
+stopwatch.Start();
 
-var CONNECTION_STRING = "Host=localhost;Username=postgres;Password=;Database=";
+var CONNECTION_STRING = "Host=localhost;Username=postgres;Password=Rp_9i7g7;Database=elib_db";
 var connection = new NpgsqlConnection(CONNECTION_STRING);
 if (args.Length == 0)
 {
@@ -67,7 +70,10 @@ if (args.Length == 0)
 }
 
 connection.Dispose();
-Console.WriteLine("Нажмите кнопку для выхода: ");
+stopwatch.Stop();
+
+Console.WriteLine($"Завершено за: {stopwatch.ElapsedMilliseconds} мс.");
+Console.WriteLine("Нажмите кнопку для выхода");
 Console.ReadLine();
 
 
