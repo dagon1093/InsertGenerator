@@ -2,7 +2,7 @@
   "profiles": {
     "GenerateInsert": {
       "commandName": "Project",
-      "commandLineArgs": "book"
+      "commandLineArgs": "book client"
     }
   }
 }
