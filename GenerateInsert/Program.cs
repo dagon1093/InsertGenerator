@@ -20,7 +20,7 @@ if (args.Length == 0)
 
     for (int arg = 0; arg < args.Length; arg++) { 
         string tableName = args[arg];
-        string path = $"{tableName}_inserts.sql";
+        string fileName = $"{tableName}_inserts.sql";
         string commandText = $"SELECT * FROM {tableName};";
 
         connection.Open();
@@ -35,25 +35,28 @@ if (args.Length == 0)
 
                 int numberOfColumns = reader.FieldCount;
 
-                while (await reader.ReadAsync())
+                using (StreamWriter writer = new StreamWriter(fileName, true))
                 {
-                    StringBuilder sb = new StringBuilder();
 
-                    for (int i = 0; i < numberOfColumns; i++)
+                    while (await reader.ReadAsync())
                     {
-                        if (reader.GetFieldValue<object>(i) is int a)
-                            sb.Append(a.ToString() + $"{(i != numberOfColumns - 1 ? ", " : "")}");
-                        else if (reader.GetFieldValue<object>(i) is string s)
-                            sb.Append($"\'{s}\'" + $"{(i != numberOfColumns - 1 ? ", " : "")}");
-                        else if (reader.GetFieldValue<object>(i) is DateTime dt)
-                            sb.Append($"\'{dt}\'" + $"{(i != numberOfColumns - 1 ? ", " : "")}");
-                    }
-                    string finalString = sb.ToString();
-                    string stringToWrite = $"INSERT INTO BOOK ({string.Join(", ", columnNames)}) VALUES ({string.Join(", ", finalString)});";
-                    Utils.writeToFile(path, stringToWrite, true);
-                    //ToDo log4net or serilog Console.WriteLine($"INSERT INTO BOOK ({string.Join(", ", columnNames)}) VALUES ({string.Join(", ", finalString)})");
-                    //DELETE -- await writer.WriteLineAsync($"INSERT INTO BOOK ({string.Join(", ", columnNames)}) VALUES ({string.Join(", ", finalString)});");
+                        StringBuilder sb = new StringBuilder();
 
+                        for (int i = 0; i < numberOfColumns; i++)
+                        {
+                            if (reader.GetFieldValue<object>(i) is int a)
+                                sb.Append(a.ToString() + $"{(i != numberOfColumns - 1 ? ", " : "")}");
+                            else if (reader.GetFieldValue<object>(i) is string s)
+                                sb.Append($"\'{s}\'" + $"{(i != numberOfColumns - 1 ? ", " : "")}");
+                            else if (reader.GetFieldValue<object>(i) is DateTime dt)
+                                sb.Append($"\'{dt}\'" + $"{(i != numberOfColumns - 1 ? ", " : "")}");
+                        }
+                        string finalString = sb.ToString();
+                        string stringToWrite = $"INSERT INTO BOOK ({string.Join(", ", columnNames)}) VALUES ({string.Join(", ", finalString)});";
+                        //ToDo log4net or serilog Console.WriteLine($"INSERT INTO BOOK ({string.Join(", ", columnNames)}) VALUES ({string.Join(", ", finalString)})");
+                        //DELETE -- await writer.WriteLineAsync($"INSERT INTO BOOK ({string.Join(", ", columnNames)}) VALUES ({string.Join(", ", finalString)});");
+                        await writer.WriteLineAsync(stringToWrite);
+                    }
                 }
 
             }
